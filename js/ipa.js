@@ -158,7 +158,7 @@ var abbrs = [
 	[/\b([Ss])ap\./g, '$1apaatip']
 ];
 
-function do_kal() {
+function do_kal_ipa() {
 	var text = $('#input-ipa').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
 	for (var i=0 ; i<abbrs.length ; ++i) {
 		text = text.replace(abbrs[i][0], abbrs[i][1]);
@@ -197,5 +197,5 @@ function do_kal() {
 
 $(function() {
 	$('#input-ipa').change(do_kal);
-	do_kal();
+	do_kal_ipa();
 });
