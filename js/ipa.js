@@ -77,8 +77,18 @@ function is_kal_from(token) {
 	return from;
 }
 
+function kal_klein2new(token) {
+	if (!token.match(/^[a-zæøåŋ]+$/i)) {
+		return token;
+	}
+
+	var U = /[qr]/i;
+	var C = /[bcdfghjklmnŋpstvwxzC]/i;
+	var V = /[aeiouyæøå]/i;
+}
+
 function kal_ipa(token) {
-	if (!token.match(/^[a-zæøå]+$/i)) {
+	if (!token.match(/^[a-zæøåŋ]+$/i)) {
 		return token;
 	}
 	token = token.replace(/nng/g, 'ŋŋ');
@@ -87,7 +97,6 @@ function kal_ipa(token) {
 	var C = /[bcdfghjklmnŋpqrstvwxz]/i;
 	var V = /[aeiouyæøå]/i;
 
-	// ToDo: Marøp
 	var i = 0;
 	var split = '';
 	for ( ; i<token.length-1 ; ++i) {
