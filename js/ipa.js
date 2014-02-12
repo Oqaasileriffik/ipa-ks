@@ -78,13 +78,54 @@ function is_kal_from(token) {
 }
 
 function kal_klein2new(token) {
-	if (!token.match(/^[a-zæøåŋ]+$/i)) {
+	if (!token.match(/^[a-zæøåĸssáuáiâáãêíîĩôúûũ']+$/i)) {
 		return token;
 	}
 
 	var U = /[qr]/i;
-	var C = /[bcdfghjklmnŋpstvwxzC]/i;
+	var C = /[bcdfghjklmnŋpstvwxz\ue002]/i;
 	var V = /[aeiouyæøå]/i;
+
+	token = token.replace(/ai$/, '\ue000');
+	token = token.replace(/ts/g, '\ue001');
+
+	token = token.replace(/K'/g, 'Q');
+	token = token.replace(/dl/g, 'l');
+	token = token.replace(/ng/g, 'ŋ');
+	token = token.replace(/ĸ/g, 'q');
+	token = token.replace(/ss/g, 's');
+	token = token.replace(/áu/g, 'aa\ue002');
+	token = token.replace(/ái/g, 'aa\ue002');
+	token = token.replace(/â/g, 'aa');
+	token = token.replace(/á/g, 'a\ue002');
+	token = token.replace(/ã/g, 'aa\ue002');
+	token = token.replace(/ê/g, 'ee');
+	token = token.replace(/í/g, 'i\ue002');
+	token = token.replace(/î/g, 'ii');
+	token = token.replace(/ĩ/g, 'ii\ue002');
+	token = token.replace(/ô/g, 'oo');
+	token = token.replace(/ú/g, 'u\ue002');
+	token = token.replace(/û/g, 'uu');
+	token = token.replace(/ũ/g, 'uu\ue002');
+
+	token = token.replace(/ae/g, 'aa');
+	token = token.replace(/ai/g, 'aa');
+	token = token.replace(/ao/g, 'aa');
+	token = token.replace(/au/g, 'aa');
+	token = token.replace(/[bcdfghjklmnŋpstvwxz\ue002]([bcdfghjklmnŋpstvwxz\ue002])/ig, '$1$1');
+
+	token = token.replace(/e$/, 'i');
+	token = token.replace(/o$/, 'u');
+	token = token.replace(/ŋŋ/g, 'nng');
+	token = token.replace(/ŋ/g, 'ng');
+	token = token.replace(/rq/g, 'qq');
+	token = token.replace(/uv([iea])/g, 'u$1');
+	token = token.replace(/tt([ie])/g, 'ts$1');
+
+	token = token.replace(/\ue000$/, 'ai');
+	token = token.replace(/\ue001/g, 'ts');
+
+	return token;
 }
 
 function kal_ipa(token) {
@@ -204,7 +245,38 @@ function do_kal_ipa() {
 	$('#ipa').html('[' + ipa.replace(/\n/g, "<br/>\n") + ']');
 }
 
+function do_kal_kleinschmidt() {
+	var text = $('#input-kleinschmidt').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
+
+	var sents = text.split(/([.:!?]\s+)/);
+	var converted = '';
+
+	for (var ln=0 ; ln<sents.length ; ++ln) {
+		var tokens = sents[ln].split(/([^\wæøåĸssáuáiâáãêíîĩôúûũ]+)/i);
+
+		for (var i=0 ; i<tokens.length ; ++i) {
+			var token = tokens[i];
+			if (token.match(/\w+/)) {
+				token = kal_klein2new(token.toLowerCase());
+			}
+			if (i == 0) {
+				token = token.substr(0, 1).toUpperCase() + token.substr(1);
+			}
+
+			converted += token;
+		}
+	}
+
+	$('#output-kleinschmidt').html(converted.replace(/\n/g, "<br/>\n"));
+}
+
 $(function() {
-	$('#input-ipa').change(do_kal);
-	do_kal_ipa();
+	if ($('#input-ipa').length) {
+		$('#input-ipa').change(do_kal_ipa);
+		do_kal_ipa();
+	}
+	if ($('#input-kleinschmidt').length) {
+		$('#input-kleinschmidt').change(do_kal_kleinschmidt);
+		do_kal_kleinschmidt();
+	}
 });
