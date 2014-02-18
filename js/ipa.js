@@ -252,7 +252,7 @@ function do_kal_kleinschmidt() {
 	var converted = '';
 
 	for (var ln=0 ; ln<sents.length ; ++ln) {
-		var tokens = sents[ln].split(/([^\wæøåĸssáuáiâáãêíîĩôúûũ]+)/i);
+		var tokens = sents[ln].split(/([^\wæøåĸssáuáiâáãêíîĩôúûũ']+)/i);
 
 		for (var i=0 ; i<tokens.length ; ++i) {
 			var token = tokens[i];
