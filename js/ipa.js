@@ -89,7 +89,11 @@ function kal_klein2new(token) {
 	token = token.replace(/ai$/, '\ue000');
 	token = token.replace(/ts/g, '\ue001');
 
-	token = token.replace(/K'/g, 'Q');
+	token = token.replace(/^suja/g, 'sia');
+	token = token.replace(/^sujo/g, 'sio');
+	token = token.replace(/^suju/g, 'siu');
+
+	token = token.replace(/k'/g, 'q');
 	token = token.replace(/dl/g, 'l');
 	token = token.replace(/ng/g, 'ŋ');
 	token = token.replace(/ĸ/g, 'q');
@@ -254,13 +258,19 @@ function do_kal_kleinschmidt() {
 	for (var ln=0 ; ln<sents.length ; ++ln) {
 		var tokens = sents[ln].split(/([^\wæøåĸssáuáiâáãêíîĩôúûũ']+)/i);
 
+		var firstword = true;
 		for (var i=0 ; i<tokens.length ; ++i) {
 			var token = tokens[i];
 			if (token.match(/\w+/)) {
 				token = kal_klein2new(token.toLowerCase());
-			}
-			if (i == 0) {
-				token = token.substr(0, 1).toUpperCase() + token.substr(1);
+				var rv = is_kal_from(token);
+				if (rv != 0) {
+					token = '<b>' + tokens[i].substr(0, rv) + '</b>' + kal_klein2new(tokens[i].substr(rv).toLowerCase());
+				}
+				if (firstword) {
+					token = token.substr(0, 1).toUpperCase() + token.substr(1);
+					firstword = false;
+				}
 			}
 
 			converted += token;
