@@ -3,7 +3,7 @@ var old_words = {
 	b: ["bâja", "bâlia", "bâliar", "bajere", "binsîna", "bîbile", "bîle", "bîler", "bilíte", "børnehave"],
 	d: ["danskeĸ", "diâvulo", "decembare"],
 	f: ["farisîare", "februâre", "fêria", "fêriar", "filmer", "filmeriar", "filme", "frêr"],
-	g: ["gáse", "gigte", "gipse", "gomôrnêr", "gymnasia", "guitare", "gûte"],
+	g: ["gáse", "gigte", "gipse", "gomôrnêr", "gymnasia", "guitare", /^gût/],
 	h: ["hîste", "horâ", "horârtor", "huâ", "huârtor"],
 	j: ["januâre", "jôrle", "jôrlisior", "jorngoĸ", "jûle", "jûlle", "jûmôĸ", "jûne", "jûte"],
 	k: ["kláse", "kûlte"],
@@ -27,7 +27,10 @@ function klein_kal_from(token) {
 	var first = token.charAt(0);
 	if (old_words[first]) {
 		for (var i=0 ; i<old_words[first].length ; ++i) {
-			if (token == old_words[first][i]) {
+			if (typeof(old_words[first][i]) === 'string' && token === old_words[first][i]) {
+				return 0;
+			}
+			if (typeof(old_words[first][i]) === 'object' && token.match(old_words[first][i])) {
 				return 0;
 			}
 		}
