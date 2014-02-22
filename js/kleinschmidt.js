@@ -61,7 +61,7 @@ function klein_kal_from(token) {
 		if (rv[1] == 'r') {
 			continue;
 		}
-		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vn|vs)/)) {
+		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vn|vs)/)) {
 			continue;
 		}
 		if (rv[1] != rv[2]) {
