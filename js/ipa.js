@@ -110,6 +110,7 @@ function kal_ipa(token) {
 	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå]#)/ig, ' ¹$1');
 	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 	token = token.replace(/ ([aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå]#)/ig, ' ¹$1');
+	token = token.replace(/ ([aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 
 	do {
@@ -147,7 +148,7 @@ function kal_ipa(token) {
 	token = token.replace(/t<sup>s<\/sup>t<sup>s<\/sup>/ig, 'tt<sup>s</sup>');
 	token = token.replace(/([aeiouyæøå])\1/ig, '$1:');
 
-	token = token.replace(/ a( ?[tns])/ig, ' ɜ$1');
+	token = token.replace(/ a( ?[tns])/ig, ' ɛ$1');
 
 	token = token.substr(1, token.length);
 	return token;
