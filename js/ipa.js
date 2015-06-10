@@ -132,12 +132,12 @@ function kal_ipa(token) {
 	token = token.replace(/g ([¹²]?)ɣ/ig, 'x $1x');
 	token = token.replace(/ ([¹²]?)r/ig, ' $1ʁ');
 
-	token = token.replace(/ee( ?[¹²]?[ʁqr])/ig, 'ɜ:$1');
-	token = token.replace(/e( ?[¹²]?[ʁqr])/ig, 'ɜ$1');
-	token = token.replace(/oo( ?[¹²]?[ʁqr])/ig, 'ɔ:$1');
-	token = token.replace(/o( ?[¹²]?[ʁqr])/ig, 'ɔ$1');
-	token = token.replace(/aa( ?[¹²]?[ʁqr])/ig, 'ɑ:$1');
-	token = token.replace(/a( ?[¹²]?[ʁqr])/ig, 'ɑ$1');
+	token = token.replace(/ee( ?[¹²]?[ʁqrχ])/ig, 'ɜ:$1');
+	token = token.replace(/e( ?[¹²]?[ʁqrχ])/ig, 'ɜ$1');
+	token = token.replace(/oo( ?[¹²]?[ʁqrχ])/ig, 'ɔ:$1');
+	token = token.replace(/o( ?[¹²]?[ʁqrχ])/ig, 'ɔ$1');
+	token = token.replace(/aa( ?[¹²]?[ʁqrχ])/ig, 'ɑ:$1');
+	token = token.replace(/a( ?[¹²]?[ʁqrχ])/ig, 'ɑ$1');
 
 	token = token.replace(/t( ?[iɜ])/ig, 't<sup>s</sup>$1');
 	token = token.replace(/t s/ig, 't t<sup>s</sup>');
