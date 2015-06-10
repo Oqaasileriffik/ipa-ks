@@ -181,7 +181,7 @@ function do_kal_ipa() {
 		for (var i=0 ; i<tokens.length ; ++i) {
 			var token = tokens[i];
 			if (!token.match(/\w+/) || rvs[i] == 0) {
-				ipa += '<span>'+kal_ipa(token)+'</span>';
+				ipa += '<span>'+kal_ipa(token.toLowerCase())+'</span>';
 				detect += token;
 				continue;
 			}
