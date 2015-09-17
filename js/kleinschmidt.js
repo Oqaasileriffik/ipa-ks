@@ -61,7 +61,7 @@ function klein_kal_from(token) {
 		if (rv[1] == 'r') {
 			continue;
 		}
-		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vn|vs)/)) {
+		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vn|vs|vt)/)) {
 			continue;
 		}
 		if (rv[1] != rv[2]) {
@@ -90,6 +90,7 @@ function kal_klein2new(token) {
 
 	token = token.replace(/k'/g, 'q');
 	token = token.replace(/dl/g, 'l');
+	token = token.replace(/rvng/g, 'rŋ');
 	token = token.replace(/ng/g, 'ŋ');
 	token = token.replace(/ĸ/g, 'q');
 	token = token.replace(/ss/g, 's');
