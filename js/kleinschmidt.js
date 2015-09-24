@@ -21,7 +21,8 @@ function is_upper(ch) {
 	return (ch === ch.toUpperCase() && ch !== ch.toLowerCase());
 }
 
-function klein_kal_from(token) {
+function klein_kal_from(otoken) {
+	var token = otoken.toLowerCase();
 	var from = 0;
 
 	var first = token.charAt(0);
@@ -42,6 +43,18 @@ function klein_kal_from(token) {
 
 	if (token.match(/^.[bcwxyzæøå]/)) {
 		from = Math.max(from, 2);
+	}
+
+	if (otoken.charAt(0).toUpperCase() == otoken.charAt(0)) {
+		var i = 0;
+		for ( ; i<otoken.length ; ++i) {
+			if (otoken.charAt(i).toUpperCase() != otoken.charAt(i)) {
+				break;
+			}
+		}
+		if (i > 1) {
+			from = Math.max(from, i);
+		}
 	}
 
 	var eorq = /[eo]+[^eorqĸ]/g;
@@ -141,7 +154,7 @@ function do_kal_kleinschmidt() {
 		for (var i=0 ; i<tokens.length ; ++i) {
 			var token = tokens[i].toLowerCase();
 			if (token.match(/\w+/)) {
-				var rv = klein_kal_from(token);
+				var rv = klein_kal_from(tokens[i]);
 				var before = '';
 				var after = token;
 				if (rv != 0) {
