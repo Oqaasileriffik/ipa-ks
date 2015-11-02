@@ -22,6 +22,7 @@ function is_upper(ch) {
 }
 
 function klein_kal_from(otoken) {
+	//console.log(otoken);
 	var token = otoken.toLowerCase();
 	var from = 0;
 
@@ -38,32 +39,41 @@ function klein_kal_from(otoken) {
 	}
 
 	if (!first.match(/[aáâãeêiíîĩkmnoôpĸstuúûũ]/)) {
+		//console.log('010');
 		from = Math.max(from, 1);
 	}
 
 	if (token.match(/^.[bcwxyzæøå]/)) {
+		//console.log('020');
 		from = Math.max(from, 2);
 	}
 
+	// Detect leading acronyms
 	if (otoken.charAt(0).toUpperCase() == otoken.charAt(0)) {
 		var i = 0;
 		for ( ; i<otoken.length ; ++i) {
-			if (otoken.charAt(i).toUpperCase() != otoken.charAt(i)) {
+			var uc = otoken.charAt(i).toUpperCase();
+			var lc = otoken.charAt(i).toLowerCase();
+			// If it is an uncased character such as ', stop here
+			if (uc == lc || uc != otoken.charAt(i)) {
 				break;
 			}
 		}
 		if (i > 1) {
+			//console.log(['030', i]);
 			from = Math.max(from, i);
 		}
 	}
 
-	var eorq = /[eo]+[^eorqĸ]/g;
+	var eorq = /[eêoô]+[^rqĸ]/g;
 	eorq.lastIndex = from;
 	while ((rv = eorq.exec(token)) != null) {
+		//console.log('040');
 		from = Math.max(from, rv.index+2);
 	}
 
-	if (!token.match(/[aekpĸtu]|ai$/)) {
+	if (!token.match(/[aekopĸtu]|ai$/)) {
+		//console.log('050');
 		from = Math.max(from, token.length);
 	}
 
@@ -74,7 +84,7 @@ function klein_kal_from(otoken) {
 		if (rv[1] == 'r') {
 			continue;
 		}
-		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vn|vs|vt)/)) {
+		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vĸ|vn|vs|vt)/)) {
 			continue;
 		}
 		if (rv[1] != rv[2]) {
@@ -91,7 +101,7 @@ function kal_klein2new(token) {
 	}
 
 	var U = /[qr]/i;
-	var C = /[bcdfghjklmnŋpstvwxz\ue002]/i;
+	var C = /[bcdfghjklmnŋpqstvwxz\ue002]/i;
 	var V = /[aeiouyæøå]/i;
 
 	token = token.replace(/ai$/, '\ue000');
@@ -125,7 +135,7 @@ function kal_klein2new(token) {
 	token = token.replace(/ai/g, 'aa');
 	token = token.replace(/ao/g, 'aa');
 	token = token.replace(/au/g, 'aa');
-	token = token.replace(/[bcdfghjklmnŋpstvwxz\ue002]([bcdfghjklmnŋpstvwxz\ue002])/ig, '$1$1');
+	token = token.replace(/[bcdfghjklmnŋpqstvwxz\ue002]([bcdfghjklmnŋpqstvwxz\ue002])/ig, '$1$1');
 
 	token = token.replace(/e$/, 'i');
 	token = token.replace(/o$/, 'u');
