@@ -17,6 +17,10 @@ var old_words = {
 	v: ["vĩneĸut", "vĩni"]
 };
 
+var blacklist = {
+	d: ["diskobugt"]
+};
+
 function is_upper(ch) {
 	return (ch === ch.toUpperCase() && ch !== ch.toLowerCase());
 }
@@ -34,6 +38,14 @@ function klein_kal_from(otoken) {
 			}
 			if (typeof(old_words[first][i]) === 'object' && token.match(old_words[first][i])) {
 				return 0;
+			}
+		}
+	}
+
+	if (blacklist[first]) {
+		for (var i=0 ; i<blacklist[first].length ; ++i) {
+			if (typeof(blacklist[first][i]) === 'string' && token.indexOf(blacklist[first][i]) === 0) {
+				from = blacklist[first][i].length;
 			}
 		}
 	}
