@@ -15,11 +15,11 @@ var old_words = {
 	s: ["septembare", "sikunte", "silveĸ", "skû"],
 	t: ["taxa", "taxar"],
 	v: ["vĩneĸut", "vĩni"]
-};
+	};
 
 var blacklist = {
 	d: ["diskobugt"]
-};
+	};
 
 function is_upper(ch) {
 	return (ch === ch.toUpperCase() && ch !== ch.toLowerCase());
@@ -86,7 +86,7 @@ function klein_kal_from(otoken) {
 
 	if (!token.match(/[aekopĸtu]|ai$/)) {
 		//console.log('050');
-		from = Math.max(from, token.length);
+		return token.length;
 	}
 
 	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([qwrtpsdfghjkĸlzxcvbnŋm])/g;
