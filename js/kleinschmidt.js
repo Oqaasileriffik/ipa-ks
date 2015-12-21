@@ -1,3 +1,5 @@
+'use strict';
+
 var old_words = {
 	a: ["augustuse", "aprîle"],
 	b: ["bâja", "bâlia", "bâliar", "bajere", "binsîna", "bîbile", "bîle", "bîler", "bilíte", "børnehave"],
@@ -84,7 +86,7 @@ function klein_kal_from(otoken) {
 		from = Math.max(from, rv.index+2);
 	}
 
-	if (!token.match(/[aekopĸtu]|ai$/)) {
+	if (!token.match(/[aáâãeêkoôpĸtuúûũ]|ai$/)) {
 		//console.log('050');
 		return token.length;
 	}

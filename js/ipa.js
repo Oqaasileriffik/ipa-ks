@@ -1,3 +1,5 @@
+'use strict';
+
 var old_words = {
 	b: ["baaja", "baalia", "baaliar", "bajeri", "biibili", "biili", "biiler", "bussi"],
 	d: ["diaavulu", "decembari"],
