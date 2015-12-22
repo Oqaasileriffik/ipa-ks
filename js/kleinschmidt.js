@@ -110,7 +110,7 @@ function klein_kal_from(otoken) {
 }
 
 function kal_klein2new(token) {
-	if (!token.match(/^[a-zæøåĸssáuáiâáãêíîĩôúûũ']+$/i)) {
+	if (!token.match(/^[a-zæøåĸâáãêíîĩôúûũ']+$/i)) {
 		return token;
 	}
 
@@ -191,7 +191,7 @@ function do_kal_kleinschmidt() {
 	var converted = '';
 
 	for (var ln=0 ; ln<sents.length ; ++ln) {
-		var tokens = sents[ln].split(/([^\wæøåĸssáuáiâáãêíîĩôúûũ']+)/i);
+		var tokens = sents[ln].split(/([^\wæøåĸâáãêíîĩôúûũ']+)/i);
 
 		var firstword = true;
 		for (var i=0 ; i<tokens.length ; ++i) {
