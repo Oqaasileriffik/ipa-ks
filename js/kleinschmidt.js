@@ -165,6 +165,25 @@ function kal_klein2new(token) {
 	return token;
 }
 
+function klein_word(itoken) {
+	var token = itoken.toLowerCase();
+	if (token.match(/\w+/)) {
+		var rv = klein_kal_from(itoken);
+		var before = '';
+		var after = token;
+		if (rv != 0) {
+			before = itoken.substr(0, rv);
+			after = token.substr(rv);
+		}
+		after = kal_klein2new(after);
+		token = before + after;
+		if (is_upper(itoken.charAt(0))) {
+			token = token.substr(0, 1).toUpperCase() + token.substr(1);
+		}
+	}
+	return token;
+}
+
 function do_kal_kleinschmidt() {
 	var text = $('#input-kleinschmidt').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
 
