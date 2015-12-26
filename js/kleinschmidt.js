@@ -124,6 +124,7 @@ function kal_klein2new(token) {
 	token = token.replace(/^suja/g, 'sia');
 	token = token.replace(/^sujo/g, 'sio');
 	token = token.replace(/^suju/g, 'siu');
+	token = token.replace(/^sujú/g, 'siu\ue002');
 
 	token = token.replace(/k'/g, 'q');
 	token = token.replace(/dl/g, 'l');
@@ -145,6 +146,7 @@ function kal_klein2new(token) {
 	token = token.replace(/û/g, 'uu');
 	token = token.replace(/ũ/g, 'uu\ue002');
 
+	token = token.replace(/aia/g, 'aaja');
 	token = token.replace(/ae/g, 'aa');
 	token = token.replace(/ai/g, 'aa');
 	token = token.replace(/ao/g, 'aa');
@@ -166,22 +168,26 @@ function kal_klein2new(token) {
 }
 
 function klein_word(itoken) {
-	var token = itoken.toLowerCase();
-	if (token.match(/\w+/)) {
-		var rv = klein_kal_from(itoken);
-		var before = '';
-		var after = token;
-		if (rv != 0) {
-			before = itoken.substr(0, rv);
-			after = token.substr(rv);
+	var tokens = itoken.split(/-/g);
+	for (var i=0 ; i<tokens.length ; ++i) {
+		var token = tokens[i].toLowerCase();
+		if (token.match(/\w+/)) {
+			var rv = klein_kal_from(tokens[i]);
+			var before = '';
+			var after = token;
+			if (rv != 0) {
+				before = tokens[i].substr(0, rv);
+				after = token.substr(rv);
+			}
+			after = kal_klein2new(after);
+			token = before + after;
+			if (is_upper(tokens[i].charAt(0))) {
+				token = token.substr(0, 1).toUpperCase() + token.substr(1);
+			}
 		}
-		after = kal_klein2new(after);
-		token = before + after;
-		if (is_upper(itoken.charAt(0))) {
-			token = token.substr(0, 1).toUpperCase() + token.substr(1);
-		}
+		tokens[i] = token;
 	}
-	return token;
+	return tokens.join('-');
 }
 
 function do_kal_kleinschmidt() {
