@@ -79,6 +79,7 @@ function klein_kal_from(otoken) {
 		}
 	}
 
+	// ToDo: Allow evk
 	var eorq = /[eêoô]+[^rqĸ]/g;
 	eorq.lastIndex = from;
 	while ((rv = eorq.exec(token)) != null) {
