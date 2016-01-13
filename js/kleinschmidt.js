@@ -120,6 +120,7 @@ function kal_klein2new(token) {
 
 	token = token.replace(/ai$/, '\ue000');
 	token = token.replace(/ts/g, '\ue001');
+	token = token.replace(/ê$/, '\ue003');
 
 	token = token.replace(/^suja/g, 'sia');
 	token = token.replace(/^sujo/g, 'sio');
@@ -163,6 +164,7 @@ function kal_klein2new(token) {
 
 	token = token.replace(/\ue000$/, 'ai');
 	token = token.replace(/\ue001/g, 'ts');
+	token = token.replace(/\ue003/g, 'ii');
 
 	return token;
 }
