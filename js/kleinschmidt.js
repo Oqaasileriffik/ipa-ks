@@ -87,11 +87,14 @@ function klein_kal_from(otoken) {
 		}
 	}
 
-	// ToDo: Allow evk
 	var eorq = /[eêoô]+[^rqĸ]/g;
 	eorq.lastIndex = from;
 	while ((rv = eorq.exec(token)) != null) {
 		//console.log('040');
+		// Handles evĸ in e.g. mevĸoĸ
+		if (token.charAt(rv.index+1) === 'v' && token.charAt(rv.index+2) === 'ĸ' && (token.charAt(rv.index) === 'e' || token.charAt(rv.index) === 'ê')) {
+			continue;
+		}
 		from = Math.max(from, rv.index+2);
 	}
 
