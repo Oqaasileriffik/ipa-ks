@@ -23,6 +23,10 @@ var blacklist = {
 	d: ["diskobugt"]
 	};
 
+var specials = {
+	'pôrske': 'poorski'
+	};
+
 function is_upper(ch) {
 	return (ch === ch.toUpperCase() && ch !== ch.toLowerCase());
 }
@@ -31,6 +35,10 @@ function klein_kal_from(otoken) {
 	//console.log(otoken);
 	var token = otoken.toLowerCase();
 	var from = 0;
+
+	if (specials.hasOwnProperty(token)) {
+		return 0;
+	}
 
 	var first = token.charAt(0);
 	if (old_words[first]) {
@@ -113,6 +121,10 @@ function klein_kal_from(otoken) {
 function kal_klein2new(token) {
 	if (!token.match(/^[a-zæøåĸâáãêíîĩôúûũ']+$/i)) {
 		return token;
+	}
+
+	if (specials.hasOwnProperty(token)) {
+		return specials[token];
 	}
 
 	var U = /[qr]/i;
