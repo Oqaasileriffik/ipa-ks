@@ -103,13 +103,19 @@ function klein_kal_from(otoken) {
 		return token.length;
 	}
 
-	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([qwrtpsdfghjkĸlzxcvbnŋm])/g;
+	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([fgkĸlmnŋpqrst])/g;
 	cons.lastIndex = from;
 	var rv = null;
 	while ((rv = cons.exec(token)) != null) {
 		if (rv[1] == 'r') {
 			continue;
 		}
+		/*
+		if (token.charAt(rv.index) === 'n' && token.charAt(rv.index+1) === 'g' && !token.charAt(rv.index+2).match(/[qwrtpsdfghjkĸlzxcvbnŋm]/)) {
+			from = Math.max(from, rv.index+3);
+			continue;
+		}
+		//*/
 		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vĸ|vn|vs|vt)/)) {
 			continue;
 		}
@@ -168,7 +174,7 @@ function kal_klein2new(token) {
 	token = token.replace(/ai/g, 'aa');
 	token = token.replace(/ao/g, 'aa');
 	token = token.replace(/au/g, 'aa');
-	token = token.replace(/[bcdfghjklmnŋpqstvwxz\ue002]([bcdfghjklmnŋpqstvwxz\ue002])/ig, '$1$1');
+	token = token.replace(/[bcdfghjklmnŋpqstvwxz\ue002]([fgklmnŋpqrst\ue002])/ig, '$1$1');
 
 	token = token.replace(/e$/, 'i');
 	token = token.replace(/o$/, 'u');
