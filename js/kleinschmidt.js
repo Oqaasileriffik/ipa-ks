@@ -87,14 +87,11 @@ function klein_kal_from(otoken) {
 		}
 	}
 
-	var eorq = /[eêoô]+[^rqĸ]/g;
+	// Allows mevĸoĸ and tovĸit
+	var eorq = /[eêoô]+[^vrqĸ]/g;
 	eorq.lastIndex = from;
 	while ((rv = eorq.exec(token)) != null) {
 		//console.log('040');
-		// Handles evĸ in e.g. mevĸoĸ
-		if (token.charAt(rv.index+1) === 'v' && token.charAt(rv.index+2) === 'ĸ' && (token.charAt(rv.index) === 'e' || token.charAt(rv.index) === 'ê')) {
-			continue;
-		}
 		from = Math.max(from, rv.index+2);
 	}
 
@@ -103,19 +100,13 @@ function klein_kal_from(otoken) {
 		return token.length;
 	}
 
-	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([fgkĸlmnŋpqrst])/g;
+	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([qwrtpsdfghjkĸlzxcvbnŋm])/g;
 	cons.lastIndex = from;
 	var rv = null;
 	while ((rv = cons.exec(token)) != null) {
 		if (rv[1] == 'r') {
 			continue;
 		}
-		/*
-		if (token.charAt(rv.index) === 'n' && token.charAt(rv.index+1) === 'g' && !token.charAt(rv.index+2).match(/[qwrtpsdfghjkĸlzxcvbnŋm]/)) {
-			from = Math.max(from, rv.index+3);
-			continue;
-		}
-		//*/
 		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vĸ|vn|vs|vt)/)) {
 			continue;
 		}
