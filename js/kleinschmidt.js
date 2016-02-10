@@ -161,6 +161,8 @@ function kal_klein2new(token) {
 	token = token.replace(/ũ/g, 'uu\ue002');
 
 	token = token.replace(/aia/g, 'aaja');
+	token = token.replace(/aua/g, 'aava');
+	token = token.replace(/aiu/g, 'aaju');
 	token = token.replace(/ae/g, 'aa');
 	token = token.replace(/ai/g, 'aa');
 	token = token.replace(/ao/g, 'aa');
