@@ -107,7 +107,7 @@ function klein_kal_from(otoken) {
 		if (rv[1] == 'r') {
 			continue;
 		}
-		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vĸ|vn|vs|vt)/)) {
+		if (token.substr(rv.index).match(/^(gdl|gf|gp|gs|gss|gt|gk|ng|ngm|ngn|rĸ|tdl|ts|vdl|vf|vg|vk|vĸ|vn|vm|vs|vt)/)) {
 			continue;
 		}
 		if (rv[1] != rv[2]) {
