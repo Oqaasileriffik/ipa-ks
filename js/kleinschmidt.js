@@ -175,7 +175,7 @@ function kal_klein2new(token) {
 	token = token.replace(/ŋŋ/g, 'nng');
 	token = token.replace(/ŋ/g, 'ng');
 	token = token.replace(/rq/g, 'qq');
-	token = token.replace(/uv([iea\ue000])/g, 'u$1');
+	token = token.replace(/uv([iea\ue000\ue003])/g, 'u$1');
 	token = token.replace(/tt([ie])/g, 'ts$1');
 
 	token = token.replace(/\ue000$/, 'ai');
