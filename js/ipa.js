@@ -156,6 +156,15 @@ function kal_ipa(token) {
 	return token;
 }
 
+function kal_ipa_words(txt) {
+	var ws = txt.split(/\s+/g);
+	for (var i=0 ; i<ws.length ; ++i) {
+		ws[i] = kal_ipa(ws[i]);
+		ws[i] = ws[i].substr(0, ws[i].length-1);
+	}
+	return ws.join(' ');
+}
+
 var abbrs = [
 	[/\b([Ss])ap\./g, '$1apaatip']
 ];
