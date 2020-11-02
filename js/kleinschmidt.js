@@ -1,6 +1,6 @@
 'use strict';
 
-var old_words = {
+let old_words = {
 	a: ["augustuse", "aprîle"],
 	b: ["bâja", "bâlia", "bâliar", "bajere", "binsîna", "bîbile", "bîle", "bîler", "bilíte", "børnehave"],
 	d: ["danskeĸ", "diâvulo", "decembare"],
@@ -19,11 +19,11 @@ var old_words = {
 	v: ["vĩneĸut", "vĩni"]
 	};
 
-var blacklist = {
+let blacklist = {
 	d: ["diskobugt"]
 	};
 
-var specials = {
+let specials = {
 	'pôrske': 'poorski'
 	};
 
@@ -33,16 +33,16 @@ function is_upper(ch) {
 
 function klein_kal_from(otoken) {
 	//console.log(otoken);
-	var token = otoken.toLowerCase();
-	var from = 0;
+	let token = otoken.toLowerCase();
+	let from = 0;
 
 	if (specials.hasOwnProperty(token)) {
 		return 0;
 	}
 
-	var first = token.charAt(0);
+	let first = token.charAt(0);
 	if (old_words[first]) {
-		for (var i=0 ; i<old_words[first].length ; ++i) {
+		for (let i=0 ; i<old_words[first].length ; ++i) {
 			if (typeof(old_words[first][i]) === 'string' && token === old_words[first][i]) {
 				return 0;
 			}
@@ -53,7 +53,7 @@ function klein_kal_from(otoken) {
 	}
 
 	if (blacklist[first]) {
-		for (var i=0 ; i<blacklist[first].length ; ++i) {
+		for (let i=0 ; i<blacklist[first].length ; ++i) {
 			if (typeof(blacklist[first][i]) === 'string' && token.indexOf(blacklist[first][i]) === 0) {
 				from = blacklist[first][i].length;
 			}
@@ -72,10 +72,10 @@ function klein_kal_from(otoken) {
 
 	// Detect leading acronyms
 	if (otoken.charAt(0).toUpperCase() == otoken.charAt(0)) {
-		var i = 0;
+		let i = 0;
 		for ( ; i<otoken.length ; ++i) {
-			var uc = otoken.charAt(i).toUpperCase();
-			var lc = otoken.charAt(i).toLowerCase();
+			let uc = otoken.charAt(i).toUpperCase();
+			let lc = otoken.charAt(i).toLowerCase();
 			// If it is an uncased character such as ', stop here
 			if (uc == lc || uc != otoken.charAt(i)) {
 				break;
@@ -88,11 +88,12 @@ function klein_kal_from(otoken) {
 	}
 
 	// Allows mevĸoĸ and tovĸit
-	var eorq = /[eêoô]+[^vrqĸ]/g;
+	let eorq = /[eêoô]+[^vrqĸ]/g;
 	eorq.lastIndex = from;
-	while ((rv = eorq.exec(token)) != null) {
+	let re = null;
+	while ((re = eorq.exec(token)) != null) {
 		//console.log('040');
-		from = Math.max(from, rv.index+2);
+		from = Math.max(from, re.index+2);
 	}
 
 	if (!token.match(/[aáâãeêkoôpĸtuúûũ]|ai$/)) {
@@ -100,9 +101,9 @@ function klein_kal_from(otoken) {
 		return token.length;
 	}
 
-	var cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([qwrtpsdfghjkĸlzxcvbnŋm])/g;
+	let cons = /([qwrtpsdfghjkĸlzxcvbnŋm])([qwrtpsdfghjkĸlzxcvbnŋm])/g;
 	cons.lastIndex = from;
-	var rv = null;
+	let rv = null;
 	while ((rv = cons.exec(token)) != null) {
 		if (rv[1] == 'r') {
 			continue;
@@ -127,9 +128,9 @@ function kal_klein2new(token) {
 		return specials[token];
 	}
 
-	var U = /[qr]/i;
-	var C = /[bcdfghjklmnŋpqstvwxz\ue002]/i;
-	var V = /[aeiouyæøå]/i;
+	let U = /[qr]/i;
+	let C = /[bcdfghjklmnŋpqstvwxz\ue002]/i;
+	let V = /[aeiouyæøå]/i;
 
 	token = token.replace(/ai$/, '\ue000');
 	token = token.replace(/ts/g, '\ue001');
@@ -186,13 +187,13 @@ function kal_klein2new(token) {
 }
 
 function klein_word(itoken) {
-	var tokens = itoken.split(/-/g);
-	for (var i=0 ; i<tokens.length ; ++i) {
-		var token = tokens[i].toLowerCase();
+	let tokens = itoken.split(/-/g);
+	for (let i=0 ; i<tokens.length ; ++i) {
+		let token = tokens[i].toLowerCase();
 		if (token.match(/\w+/)) {
-			var rv = klein_kal_from(tokens[i]);
-			var before = '';
-			var after = token;
+			let rv = klein_kal_from(tokens[i]);
+			let before = '';
+			let after = token;
 			if (rv != 0) {
 				before = tokens[i].substr(0, rv);
 				after = token.substr(rv);
@@ -208,22 +209,20 @@ function klein_word(itoken) {
 	return tokens.join('-');
 }
 
-function do_kal_kleinschmidt() {
-	var text = $('#input-kleinschmidt').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
+function do_kal_kleinschmidt_raw(text) {
+	let sents = text.split(/([.:!?]\s+)/);
+	let converted = '';
 
-	var sents = text.split(/([.:!?]\s+)/);
-	var converted = '';
+	for (let ln=0 ; ln<sents.length ; ++ln) {
+		let tokens = sents[ln].split(/([^\wæøåĸâáãêíîĩôúûũ']+)/i);
 
-	for (var ln=0 ; ln<sents.length ; ++ln) {
-		var tokens = sents[ln].split(/([^\wæøåĸâáãêíîĩôúûũ']+)/i);
-
-		var firstword = true;
-		for (var i=0 ; i<tokens.length ; ++i) {
-			var token = tokens[i].toLowerCase();
+		let firstword = true;
+		for (let i=0 ; i<tokens.length ; ++i) {
+			let token = tokens[i].toLowerCase();
 			if (token.match(/\w+/)) {
-				var rv = klein_kal_from(tokens[i]);
-				var before = '';
-				var after = token;
+				let rv = klein_kal_from(tokens[i]);
+				let before = '';
+				let after = token;
 				if (rv != 0) {
 					before = '<b>' + tokens[i].substr(0, rv) + '</b>';
 					after = token.substr(rv);
@@ -240,12 +239,23 @@ function do_kal_kleinschmidt() {
 		}
 	}
 
-	$('#output-kleinschmidt').html(converted.replace(/\n/g, "<br/>\n"));
+	return converted;
 }
 
-$(function() {
-	if ($('#input-kleinschmidt').length) {
-		$('#input-kleinschmidt').change(do_kal_kleinschmidt);
-		do_kal_kleinschmidt();
+// If jQuery is loaded, set up automatics
+if (typeof $ !== 'undefined') {
+	function do_kal_kleinschmidt() {
+		let text = $('#input-kleinschmidt').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
+
+		let converted = do_kal_kleinschmidt_raw(text);
+
+		$('#output-kleinschmidt').html(converted.replace(/\n/g, "<br/>\n"));
 	}
-});
+
+	$(function() {
+		if ($('#input-kleinschmidt').length) {
+			$('#input-kleinschmidt').change(do_kal_kleinschmidt);
+			do_kal_kleinschmidt();
+		}
+	});
+}

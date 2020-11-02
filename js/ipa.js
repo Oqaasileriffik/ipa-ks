@@ -1,6 +1,6 @@
 'use strict';
 
-var old_words = {
+let old_words = {
 	b: ["baaja", "baalia", "baaliar", "bajeri", "biibili", "biili", "biiler", "bussi"],
 	d: ["diaavulu", "decembari"],
 	f: ["farisiiari", "februaari", "feeria", "feeriar", "freer"],
@@ -10,18 +10,18 @@ var old_words = {
 	l: ["laaja", "lakker", "lakki", "lal'laaq", "lappi", "liimmer", "liimmi"],
 	r: ["raaja", "rinngi", "rommi", "russeq", "ruua", "ruujori", "ruusa", "ruusaar"],
 	v: ["viinnequt", "viinni"]
-};
+	};
 
 function is_upper(ch) {
 	return (ch === ch.toUpperCase() && ch !== ch.toLowerCase());
 }
 
 function ipa_kal_from(token) {
-	var from = 0;
+	let from = 0;
 
-	var first = token.charAt(0);
+	let first = token.charAt(0);
 	if (old_words[first]) {
-		for (var i=0 ; i<old_words[first].length ; ++i) {
+		for (let i=0 ; i<old_words[first].length ; ++i) {
 			if (token == old_words[first][i]) {
 				return 0;
 			}
@@ -42,25 +42,26 @@ function ipa_kal_from(token) {
 		from = Math.max(from, 3);
 	}
 
-	var eorq = /[eo]+[^eorq]/g;
+	let eorq = /[eo]+[^eorq]/g;
 	eorq.lastIndex = from;
-	while ((rv = eorq.exec(token)) != null) {
-		from = Math.max(from, rv.index+2);
+	let re = null;
+	while ((re = eorq.exec(token)) != null) {
+		from = Math.max(from, re.index+2);
 	}
 
-	var last = token.charAt(token.length-1);
+	let last = token.charAt(token.length-1);
 	if (!last.match(/[aikpqtu]/)) {
 		from = Math.max(from, token.length);
 	}
 
-	var rv = null;
-	if ((rv = /[^aefgijklmnopqrstuv][aefgijklmnopqrstuv]+$/.exec(token)) !== null) {
-		from = Math.max(from, rv.index+1);
+	let rf = null;
+	if ((rf = /[^aefgijklmnopqrstuv][aefgijklmnopqrstuv]+$/.exec(token)) !== null) {
+		from = Math.max(from, rf.index+1);
 	}
 
-	var cons = /([qwrtpsdfghjklzxcvbnm])([qwrtpsdfghjklzxcvbnm])/g;
+	let cons = /([qwrtpsdfghjklzxcvbnm])([qwrtpsdfghjklzxcvbnm])/g;
 	cons.lastIndex = from;
-	var rv = null;
+	let rv = null;
 	while ((rv = cons.exec(token)) != null) {
 		if (rv[1] == 'r') {
 			continue;
@@ -86,11 +87,11 @@ function kal_ipa(token) {
 	token = token.replace(/nng/g, 'ŋŋ');
 	token = token.replace(/ng/g, 'ŋ');
 
-	var C = /[bcdfghjklmnŋpqrstvwxz]/i;
-	var V = /[aeiouyæøå]/i;
+	let C = /[bcdfghjklmnŋpqrstvwxz]/i;
+	let V = /[aeiouyæøå]/i;
 
-	var i = 0;
-	var split = '';
+	let i = 0;
+	let split = '';
 	for ( ; i<token.length-1 ; ++i) {
 		split += token.charAt(i);
 		if (token.charAt(i).match(V) && token.charAt(i+1).match(C) && token.charAt(i+2).match(V)) {
@@ -115,9 +116,10 @@ function kal_ipa(token) {
 	token = token.replace(/ ([aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 
+	let old = '';
 	do {
 		// This loop is necessary because the suffix space is part of the whole match, so next match won't see it.
-		var old = token;
+		old = token;
 		token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz] )/ig, ' ¹$1');
 		token = token.replace(/ ([aeiouyæøå][bcdfghjklmnŋpqrstvwxz] )/ig, ' ¹$1');
 	} while (old !== token);
@@ -157,40 +159,39 @@ function kal_ipa(token) {
 }
 
 function kal_ipa_words(txt) {
-	var ws = txt.split(/\s+/g);
-	for (var i=0 ; i<ws.length ; ++i) {
+	let ws = txt.split(/\s+/g);
+	for (let i=0 ; i<ws.length ; ++i) {
 		ws[i] = kal_ipa(ws[i]);
 		ws[i] = ws[i].substr(0, ws[i].length-1);
 	}
 	return ws.join(' ');
 }
 
-var abbrs = [
+let abbrs = [
 	[/\b([Ss])ap\./g, '$1apaatip']
 ];
 
-function do_kal_ipa() {
-	var text = $('#input-ipa').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
-	for (var i=0 ; i<abbrs.length ; ++i) {
+function do_kal_ipa_raw(text) {
+	for (let i=0 ; i<abbrs.length ; ++i) {
 		text = text.replace(abbrs[i][0], abbrs[i][1]);
 	}
 
-	var sents = text.split(/([.:!?]\s+)/);
-	var detect = '';
-	var ipa = '';
+	let sents = text.split(/([.:!?]\s+)/);
+	let detect = '';
+	let ipa = '';
 
-	for (var ln=0 ; ln<sents.length ; ++ln) {
-		var tokens = sents[ln].split(/([^\wæøå]+)/i);
-		var rvs = [];
+	for (let ln=0 ; ln<sents.length ; ++ln) {
+		let tokens = sents[ln].split(/([^\wæøå]+)/i);
+		let rvs = [];
 
-		for (var i=0 ; i<tokens.length ; ++i) {
-			var token = tokens[i];
-			var rv = ipa_kal_from(token.toLowerCase());
+		for (let i=0 ; i<tokens.length ; ++i) {
+			let token = tokens[i];
+			let rv = ipa_kal_from(token.toLowerCase());
 			rvs.push(rv);
 		}
 
-		for (var i=0 ; i<tokens.length ; ++i) {
-			var token = tokens[i];
+		for (let i=0 ; i<tokens.length ; ++i) {
+			let token = tokens[i];
 			if (!token.match(/\w+/) || rvs[i] == 0) {
 				ipa += '<span>'+kal_ipa(token.toLowerCase())+'</span>';
 				detect += token;
@@ -202,13 +203,24 @@ function do_kal_ipa() {
 		}
 	}
 
-	$('#detected').html(detect.replace(/\n/g, "<br/>\n"));
-	$('#ipa').html('[' + ipa.replace(/\n/g, "<br/>\n") + ']');
+	return {detect: detect, ipa: ipa};
 }
 
-$(function() {
-	if ($('#input-ipa').length) {
-		$('#input-ipa').change(do_kal_ipa);
-		do_kal_ipa();
+// If jQuery is loaded, set up automatics
+if (typeof $ !== 'undefined') {
+	function do_kal_ipa() {
+		let text = $('#input-ipa').val().replace("\r\n", "\n").replace(/^\s+/, '').replace(/\s+$/, '');
+
+		let rv = do_kal_ipa_raw(text);
+
+		$('#detected').html(rv.detect.replace(/\n/g, "<br/>\n"));
+		$('#ipa').html('[' + rv.ipa.replace(/\n/g, "<br/>\n") + ']');
 	}
-});
+
+	$(function() {
+		if ($('#input-ipa').length) {
+			$('#input-ipa').change(do_kal_ipa);
+			do_kal_ipa();
+		}
+	});
+}
