@@ -55,11 +55,11 @@ function ipa_kal_from(token) {
 	}
 
 	let rf = null;
-	if ((rf = /[^aefgijklmnopqrstuv][aefgijklmnopqrstuv]+$/.exec(token)) !== null) {
+	if ((rf = /[^aefgijklmnopqrstuvŋ][aefgijklmnopqrstuvŋ]+$/.exec(token)) !== null) {
 		from = Math.max(from, rf.index+1);
 	}
 
-	let cons = /([qwrtpsdfghjklzxcvbnm])([qwrtpsdfghjklzxcvbnm])/g;
+	let cons = /([qwrtpsdfghjklzxcvbnmŋ])([qwrtpsdfghjklzxcvbnmŋ])/g;
 	cons.lastIndex = from;
 	let rv = null;
 	while ((rv = cons.exec(token)) != null) {
@@ -109,12 +109,6 @@ function kal_ipa(token) {
 	split += token.substr(i);
 	token = split;
 	token = ' ' + token + '#';
-
-	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå]#)/ig, ' ¹$1');
-	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
-	token = token.replace(/ ([aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå]#)/ig, ' ¹$1');
-	token = token.replace(/ ([aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
-	token = token.replace(/ ([bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå] [bcdfghjklmnŋpqrstvwxz][aeiouyæøå][bcdfghjklmnŋpqrstvwxz]#)/ig, ' ¹$1');
 
 	let old = '';
 	do {
@@ -181,7 +175,7 @@ function do_kal_ipa_raw(text) {
 	let ipa = '';
 
 	for (let ln=0 ; ln<sents.length ; ++ln) {
-		let tokens = sents[ln].split(/([^\wæøå]+)/i);
+		let tokens = sents[ln].split(/([^\wŋæøå]+)/i);
 		let rvs = [];
 
 		for (let i=0 ; i<tokens.length ; ++i) {

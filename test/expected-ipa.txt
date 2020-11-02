@@ -4,7 +4,7 @@
 <span>ma ¹liɬ ɬu ɣu#</span>
 <span>su li <sup>j</sup>u ma ¹jun ²nɑ:n nɜq#</span>
 <span>pi ¹lɜs ¹sin na ɣu#</span>
-<span>¹su li sut#</span>
+<span>su li sut#</span>
 <span>ɔ qa lɔ qa t<sup>s</sup>i ɣi ¹nis ²sa:t#</span>
 <b>Air</b> 
 <b>Greenland</b> i mi#
@@ -12,16 +12,10 @@
 <span>pi <sup>j</sup>ɑ ²ʁɜ:s si ¹maf fi ɣi si ma ²va:t#</span>
 <span>. </span>
 <span>sa ²pa: t<sup>s</sup>ip#</span>
-<span>a ¹kun ¹nɜ ʁa ni#</span>
-<span>ki#</span>
-<span>ŋ#</span>
-<span>¹uɬ ¹ɬɜm mi#</span>
-<span>pi#</span>
-<span>ŋ#</span>
-<span>ɛ su#</span>
-<span>ŋŋ#</span>
-<span>¹ɔm mat#</span>
-<span>¹su li sut#</span>
+<span>a ¹kun nɜ ʁa ni#</span>
+<span>ki ¹ŋuɬ ¹ɬɜm mi#</span>
+<span>pi ŋa ¹suŋ ¹ŋɔm mat#</span>
+<span>su li sut#</span>
 <span>a ²ta:t t<sup>s</sup>i ²mɜ: qa t<sup>s</sup>i ɣi ¹nis ²sa:t#</span>
 <span>nɜ ʁi ¹<sup>j</sup>ɔs ²su: t<sup>s</sup>i ɣi si ma ²va:t#</span>
 <span>. </span>
@@ -30,13 +24,11 @@
 <b>Air</b> 
 <b>Greenland</b> ip#
 <span>¹t<sup>s</sup>im mi ¹sɑt tu <sup>w</sup>i ni#</span>
-<span>¹sɑ qi sut#</span>
+<span>sɑ qi sut#</span>
 <span>pɜ qa t<sup>s</sup>i ²ɣi:f fi <sup>j</sup>a ta#</span>
-<span>²na:m ma ¹ɣi si ma#</span>
-<span>ŋŋ#</span>
-<span>i ²la:#</span>
+<span>²na:m ma ɣi si ¹maŋ ŋi ²la:#</span>
 
-<span>¹u ki <sup>j</sup>ap#</span>
+<span>u ki <sup>j</sup>ap#</span>
 <span>sɜ ¹qɜn na#</span>
-<span>¹puk ¹ki li sɔq#</span>
+<span>¹puk ki li sɔq#</span>
 
