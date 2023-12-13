@@ -138,6 +138,7 @@ function kal_klein2new(token) {
 
 	token = token.replace(/^suja/g, 'sia');
 	token = token.replace(/^sujo/g, 'sio');
+	token = token.replace(/^sujô/g, 'sioo');
 	token = token.replace(/^suju/g, 'siu');
 	token = token.replace(/^sujú/g, 'siu\ue002');
 
